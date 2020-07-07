@@ -1,0 +1,49 @@
+
+title: "Regression Analysis on Motor Trend Data"
+author: "Olawale Ogundeji"
+date: "07/07/2020"
+output: html_document
+
+**OVERVIEW**
+You work for Motor Trend, a magazine about the automobile industry. Looking at a data set of a collection of cars, they are interested in exploring the relationship between a set of variables and miles per gallon (MPG) (outcome). They are particularly interested in the following two questions:
+
+(i) “Is an automatic or manual transmission better for MPG”
+(ii) “Quantify the MPG difference between automatic and manual transmissions”
+Some regression analysis was done, and the results obtained reveals that transmission type, cylinders, horsepower, and weight are the important factors that affect the MPG.
+The Data Analysis is performed below:
+
+library(datasets)
+data(mtcars)
+str(mtcars)
+mtcars$cyl<-factor(mtcars$cyl)
+mtcars$vs<-factor(mtcars$vs)
+mtcars$gear<-factor(mtcars$gear)
+mtcars$carb<-factor(mtcars$carb)
+mtcars$am<-factor(mtcars$am,labels=c('Automatic','manual'))
+
+IS AN AUTOMATIC OR MANUAL TRANSMISSION BETTER FOR MPG?
+A boxplot of MPG by transmission types is shown below by inputing the R code. The graph reveals that the manual transmission is better than automatic transmission for MPG.
+Also, due to the sample size of the data, a t-test is performed on the hypothesis.
+
+
+boxplot(mpg~am,data=mtcars,
+        xlab<-"Transmission",
+        ylab<-"Miles per Gallon",
+        main<-"MPG by Transmission Type")
+t.test(mtcars$mpg~mtcars$am)
+##
+##Welch two sample t-test
+##
+##data: mtcars$mpg by mtcars$am
+##t=-3.7671, df=18.332, p-value=0.001374
+##alternative hypothesis: true difference in means is not equal to 0
+##95 percent confidence interval:
+##-11.280194 -3.209684
+##sample estimates:
+##mean in group Automatic mean in group manual
+##               17.14737             24.39231   
+
+
+```
+
+Based on the results, p-value=0.001374<0.05, the null hypothesis that there is no difference in MPG is rejected, and the conclusion that manual transmission is better than automatic for MPG is adopted, with the assumption that all other conditions remain constant.
